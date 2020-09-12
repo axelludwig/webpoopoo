@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebPooPooServer", "WebPooPooServer\WebPooPooServer.csproj", "{DFAEF498-A836-45A2-BC38-E6B26AC756A4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DFAEF498-A836-45A2-BC38-E6B26AC756A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFAEF498-A836-45A2-BC38-E6B26AC756A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFAEF498-A836-45A2-BC38-E6B26AC756A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFAEF498-A836-45A2-BC38-E6B26AC756A4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {351057A5-7865-4783-A4FE-30B81322140A}
+	EndGlobalSection
+EndGlobal
