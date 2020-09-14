@@ -43,13 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Packet\PacketDissociator.cs" />
-    <Compile Include="Packet\SocketPacket.cs" />
+    <Compile Include="MainManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Room.cs" />
-    <Compile Include="UdpServer\SocketSender.cs" />
-    <Compile Include="UdpServer\UDPSocket.cs" />
+    <Compile Include="SocketSender.cs" />
     <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>

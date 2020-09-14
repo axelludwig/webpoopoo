@@ -2,43 +2,39 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using WebPooPooServer.Packet;
-using WebPooPooServer.UdpServer;
 
 namespace WebPooPooServer
 {
     class Program
     {
-        public static List<Room> Rooms = new List<Room>();
         static void Main(string[] args)
         {
-            FleckLog.Level = LogLevel.Debug;
             var allSockets = new List<IWebSocketConnection>();
             var server = new WebSocketServer("ws://0.0.0.0:7777");
+
             server.Start(socket =>
             {
                 socket.OnOpen = () =>
                 {
                     Console.WriteLine("Open!");
+                    
                     allSockets.Add(socket);
+                    User user = new User(socket);
+                    socket.Send(user.Id);
                 };
                 socket.OnClose = () =>
                 {
                     Console.WriteLine("Close!");
+                    User.RemoveUser(getSocketId(socket));
                     allSockets.Remove(socket);
                 };
                 socket.OnMessage = message =>
                 {
                     Console.WriteLine(message);
-                    allSockets.ToList().ForEach(s => s.Send("Echo: " + message));
+                    string response = MainManager.ProcessMessage(message, getSocketId(socket));
+                    socket.Send(response);
                 };
             });
-
 
             var input = Console.ReadLine();
             while (input != "exit")
@@ -50,6 +46,11 @@ namespace WebPooPooServer
                 input = Console.ReadLine();
             }
 
+        }
+
+        public static string getSocketId(IWebSocketConnection socket)
+        {
+            return socket.ConnectionInfo.Id.ToString();
         }
     }
 }
