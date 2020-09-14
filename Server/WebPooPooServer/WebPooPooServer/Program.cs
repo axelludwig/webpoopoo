@@ -32,7 +32,8 @@ namespace WebPooPooServer
                 {
                     Console.WriteLine(message);
                     string response = MainManager.ProcessMessage(message, getSocketId(socket));
-                    socket.Send(response);
+                    if (response != null)
+                        socket.Send(response);
                 };
             });
 

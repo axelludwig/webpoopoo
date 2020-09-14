@@ -9,6 +9,7 @@ namespace WebPooPooServer
     public class Room
     {
         public int Id;
+        public string Name;
         public static int maxId = 0;
         public List<User> Users;
 
@@ -16,13 +17,9 @@ namespace WebPooPooServer
         {
             Id = maxId;
             maxId++;
+            Name = "Room " + Id;
             Users = new List<User>();
             MainManager.Rooms.Add(this);
-        }
-
-        public List<User> GetUsersFromRoom(int id)
-        {
-            return MainManager.Rooms.Where(rooms => rooms.Id == id).FirstOrDefault().Users;
         }
 
         public static Room GetRoomFromId(int id)
@@ -37,13 +34,18 @@ namespace WebPooPooServer
                 return "errorNoUserName";
             }
 
-            List<string> res = new List<string>();
+            List<string> rooms = new List<string>();
             foreach (Room room in MainManager.Rooms)
             {
-                res.Add("Room " + room.Id);
+                List<string> users = new List<string>();
+                foreach(User user in room.Users)
+                {
+                    users.Add(user.Id + "," + user.UserName);
+                }
+                rooms.Add(room.Id + "," + room.Name + "users[" + string.Join("|", users));
             }
 
-            return "rooms|" + string.Join(",", res);
+            return "rooms|" + string.Join(",", rooms);
         }
     }
 }

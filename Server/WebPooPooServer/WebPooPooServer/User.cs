@@ -27,12 +27,8 @@ namespace WebPooPooServer
                 return "errorNoUserName";
             }
             Room room = new Room();
+            SocketSender.SendToAllUsers("newroom|" + room.Id + "," + room.Name);
             return JoinRoom(room.Id);
-        }
-
-        public void AddToRoom(Room room)
-        {
-            room.Users.Add(this);
         }
 
         public Room GetRoom()
@@ -76,8 +72,8 @@ namespace WebPooPooServer
             if (!room.Users.Contains(this))
             {
                 room.Users.Add(this);
-                SocketSender.SendToAllUsers("");
-                return "users|" + string.Join(",", room.Users.Select(users => users.UserName));
+                SocketSender.SendToAllUsers("userjoinroom|" + Id + "," + roomId);
+                return null;
             }
             else
             {
