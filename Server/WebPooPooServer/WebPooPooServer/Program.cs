@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Fleck;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using WebPooPooServer.Packet;
 using WebPooPooServer.UdpServer;
@@ -15,24 +17,39 @@ namespace WebPooPooServer
         public static List<Room> Rooms = new List<Room>();
         static void Main(string[] args)
         {
-            byte[] data = new byte[1024];
-            IPEndPoint ipep = new IPEndPoint(IPAddress.Any, 9050);
-            UdpClient newsock = new UdpClient(ipep);
-
-            Console.WriteLine("Waiting for a client...");
-
-            IPEndPoint sender = new IPEndPoint(IPAddress.Any, 0);
-
-            while (true)
+            FleckLog.Level = LogLevel.Debug;
+            var allSockets = new List<IWebSocketConnection>();
+            var server = new WebSocketServer("ws://0.0.0.0:7777");
+            server.Start(socket =>
             {
-                data = newsock.Receive(ref sender);
+                socket.OnOpen = () =>
+                {
+                    Console.WriteLine("Open!");
+                    allSockets.Add(socket);
+                };
+                socket.OnClose = () =>
+                {
+                    Console.WriteLine("Close!");
+                    allSockets.Remove(socket);
+                };
+                socket.OnMessage = message =>
+                {
+                    Console.WriteLine(message);
+                    allSockets.ToList().ForEach(s => s.Send("Echo: " + message));
+                };
+            });
 
-                Console.WriteLine("Message received from {0}:", sender.ToString());
-                Console.WriteLine(Encoding.ASCII.GetString(data, 0, data.Length));
 
-                Console.WriteLine(Encoding.ASCII.GetString(data, 0, data.Length));
-                //newsock.Send(data, data.Length, sender);
+            var input = Console.ReadLine();
+            while (input != "exit")
+            {
+                foreach (var socket in allSockets.ToList())
+                {
+                    socket.Send(input);
+                }
+                input = Console.ReadLine();
             }
+
         }
     }
 }

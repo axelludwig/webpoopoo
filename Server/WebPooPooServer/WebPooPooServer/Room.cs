@@ -17,8 +17,6 @@ namespace WebPooPooServer
             Id = maxId;
             maxId++;
             Users = new List<User>();
-
-            Program.Rooms.Add(this);
         }
     }
 }

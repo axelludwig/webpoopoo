@@ -1,5 +1,21 @@
-var ws = new WebSocket('ws://91.166.171.168:9050', 'a')
+/*var socket = new WebSocket("http://localhost:9050");
 
-ws.onopen = function() {
+socket.onopen = function() {
   console.log("ok")
+};*/
+
+/*
+ var sock = new SockJS('http://127.0.0.1:9050');
+ 
+ sock.onopen = function() {
+     console.log('open');
+     sock.send('test');
+ };*/
+ 
+ console.log("sida")
+ 
+const socket = io('ws://127.0.0.1:9050');
+
+socket.onopen = function() {
+  websocket.send("super");
 };

@@ -4,7 +4,7 @@ import * as io from 'socket.io-client';
 import './Test.css';
 
 export class Test extends Component {
-  // url = 'http://91.166.171.168:9050';
+  // url = 'http://127.0.0.1:9050';
 
   url = 'http://localhost:4000';
   socket;
@@ -14,14 +14,14 @@ export class Test extends Component {
 
   constructor() {
 
-    // super(props)
+    super(props)
     // this.socket = io(this.url);
     // console.log(this.socket)
     // this.state = {}
 
-    const socket = new WebSocket('ws://localhost:3000');
+    /*const socket = new WebSocket('ws://localhost:3000');
 
-    
+
 
     socket.onopen(() => {
       socket.send('Hello!');
@@ -29,16 +29,29 @@ export class Test extends Component {
 
     socket.onmessage(data => {
       console.log(data);
-    });
+    });*/
   }
 
   button() {
     // this.socket.on('roomMessageResponse', (message) => {
     //   console.log(message)
     // });
-    console.log(this.socket)
+    /*console.log(this.socket)
     this.socket.emit('connectUser', 'test');
-    console.log('test')
+    console.log('test')*/
+
+    var PORT = 9050;
+    var HOST = '127.0.0.1';
+
+    var dgram = require('dgram');
+    var message = new Buffer('My KungFu is Good!');
+    
+    var client = dgram.createSocket('udp4');
+    client.send(message, 0, message.length, PORT, HOST, function (err, bytes) {
+      if (err) throw err;
+      console.log('UDP message sent to ' + HOST + ':' + PORT);
+      client.close();
+    });
   }
 
 

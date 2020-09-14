@@ -1,0 +1,16 @@
+C:\Users\guiks\Desktop\Fleck-master\src\Fleck\bin\Debug\net40\Fleck.dll
+C:\Users\guiks\Desktop\Fleck-master\src\Fleck\bin\Debug\net40\Fleck.pdb
+C:\Users\guiks\Desktop\Fleck-master\src\Fleck\obj\Debug\net40\Fleck.csprojAssemblyReference.cache
+C:\Users\guiks\Desktop\Fleck-master\src\Fleck\obj\Debug\net40\Fleck.AssemblyInfoInputs.cache
+C:\Users\guiks\Desktop\Fleck-master\src\Fleck\obj\Debug\net40\Fleck.AssemblyInfo.cs
+C:\Users\guiks\Desktop\Fleck-master\src\Fleck\obj\Debug\net40\Fleck.csproj.CoreCompileInputs.cache
+C:\Users\guiks\Desktop\Fleck-master\src\Fleck\obj\Debug\net40\Fleck.dll
+C:\Users\guiks\Desktop\Fleck-master\src\Fleck\obj\Debug\net40\Fleck.pdb
+C:\Users\guiks\Documents\webpoopoo\Server\WebPooPooServer\Fleck\bin\Debug\net40\Fleck.dll
+C:\Users\guiks\Documents\webpoopoo\Server\WebPooPooServer\Fleck\bin\Debug\net40\Fleck.pdb
+C:\Users\guiks\Documents\webpoopoo\Server\WebPooPooServer\Fleck\obj\Debug\net40\Fleck.csprojAssemblyReference.cache
+C:\Users\guiks\Documents\webpoopoo\Server\WebPooPooServer\Fleck\obj\Debug\net40\Fleck.AssemblyInfoInputs.cache
+C:\Users\guiks\Documents\webpoopoo\Server\WebPooPooServer\Fleck\obj\Debug\net40\Fleck.AssemblyInfo.cs
+C:\Users\guiks\Documents\webpoopoo\Server\WebPooPooServer\Fleck\obj\Debug\net40\Fleck.csproj.CoreCompileInputs.cache
+C:\Users\guiks\Documents\webpoopoo\Server\WebPooPooServer\Fleck\obj\Debug\net40\Fleck.dll
+C:\Users\guiks\Documents\webpoopoo\Server\WebPooPooServer\Fleck\obj\Debug\net40\Fleck.pdb

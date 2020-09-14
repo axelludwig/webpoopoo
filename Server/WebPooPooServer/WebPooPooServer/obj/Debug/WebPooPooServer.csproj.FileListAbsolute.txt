@@ -5,3 +5,6 @@ C:\Users\guiks\Documents\webpoopoo\Server\WebPooPooServer\WebPooPooServer\obj\De
 C:\Users\guiks\Documents\webpoopoo\Server\WebPooPooServer\WebPooPooServer\obj\Debug\WebPooPooServer.csproj.CoreCompileInputs.cache
 C:\Users\guiks\Documents\webpoopoo\Server\WebPooPooServer\WebPooPooServer\obj\Debug\WebPooPooServer.exe
 C:\Users\guiks\Documents\webpoopoo\Server\WebPooPooServer\WebPooPooServer\obj\Debug\WebPooPooServer.pdb
+C:\Users\guiks\Documents\webpoopoo\Server\WebPooPooServer\WebPooPooServer\bin\Debug\Fleck.dll
+C:\Users\guiks\Documents\webpoopoo\Server\WebPooPooServer\WebPooPooServer\bin\Debug\Fleck.pdb
+C:\Users\guiks\Documents\webpoopoo\Server\WebPooPooServer\WebPooPooServer\obj\Debug\WebPooPooServer.csproj.CopyComplete

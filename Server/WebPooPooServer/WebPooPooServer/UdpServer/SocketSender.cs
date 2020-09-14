@@ -10,7 +10,7 @@ namespace WebPooPooServer.UdpServer
 {
     public class SocketSender
     {
-        public void Send(string message, string adresse)
+        public static void Send(string message, string adresse)
         {
             Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
 
@@ -18,8 +18,7 @@ namespace WebPooPooServer.UdpServer
 
             IPEndPoint endPoint = new IPEndPoint(serverAddr, 11000);
 
-            string text = "Hello";
-            byte[] send_buffer = Encoding.ASCII.GetBytes(text);
+            byte[] send_buffer = Encoding.ASCII.GetBytes(message);
 
             sock.SendTo(send_buffer, endPoint);
         }
