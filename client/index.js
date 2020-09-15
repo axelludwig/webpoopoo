@@ -1,10 +1,10 @@
 var websocket,
-  // serverip = "ws://localhost:7777",
-  serverip = "ws://91.166.171.168:7777",
+  serverip = "ws://localhost:7777",
+  // serverip = "ws://91.166.171.168:7777",
   hasUsername = false,
   serverAccess = false,
-  username;
-myself;
+  username,
+  myself
 
 
 document.getElementById('save').addEventListener('click', createUserButton);
