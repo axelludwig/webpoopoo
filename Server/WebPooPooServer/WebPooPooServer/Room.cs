@@ -42,10 +42,10 @@ namespace WebPooPooServer
                 {
                     users.Add(user.Id + ":" + user.UserName);
                 }
-                rooms.Add(room.Id + "," + room.Name + ",users[" + string.Join("-", users) + "]");
+                rooms.Add(room.Id + "," + room.Name + "," + string.Join("&", users));
             }
 
-            return "rooms|" + string.Join("_", rooms);
+            return "getrooms|" + string.Join("_", rooms);
         }
 
         public static string RemoveRoom(User user, int roomId)

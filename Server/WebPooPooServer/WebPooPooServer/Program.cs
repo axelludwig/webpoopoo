@@ -20,7 +20,7 @@ namespace WebPooPooServer
                     
                     allSockets.Add(socket);
                     User user = new User(socket);
-                    socket.Send(user.Id);
+                    socket.Send("getmyid|" + user.Id);
                 };
                 socket.OnClose = () =>
                 {

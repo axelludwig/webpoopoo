@@ -1,103 +1,109 @@
 var websocket,
-  serverip = "ws://localhost:7777",
-  // serverip = "ws://91.166.171.168:7777",
-  hasUsername = false,
-  serverAccess = false,
-  username,
-  myself
+    serverip = "ws://localhost:7777",
+    // serverip = "ws://91.166.171.168:7777",
+    hasUsername = false,
+    serverAccess = false,
+    username,
+    myself;
+
+var Rooms = []
+var Users = []
 
 
 document.getElementById('save').addEventListener('click', createUserButton);
 document.getElementById('changeUsername').addEventListener('click', toggleChangeUsername);
 document.getElementById('createRoom').addEventListener('click', sendNewRoom);
-document.getElementById('getRooms').addEventListener('click', sendGetRooms);
 
 
 try {
-  //server access
-  websocket = new WebSocket(serverip);
-  websocket.onopen = function (e) {
-    console.log('connected to ' + serverip);
-    serverAccess = true;
-    document.getElementById('disconnected').style.display = 'none';
-    document.getElementById('connected').style.display = 'block';
+    //server access
+    websocket = new WebSocket(serverip);
+    websocket.onopen = function (e) {
+        console.log('connected to ' + serverip);
+        serverAccess = true;
+        document.getElementById('disconnected').style.display = 'none';
+        document.getElementById('connected').style.display = 'block';
 
-    //username code
-    var recoveredUsername = localStorage.getItem('username');
-    if (isEmpty(recoveredUsername)) {
-      console.log('no username created yet')
-      document.getElementById('usernameInput').style.display = 'block'
-      document.getElementById('app').style.display = 'none'
-    } else {
-      document.getElementById('usernameInput').style.display = 'none'
-      document.getElementById('app').style.display = 'block'
-      document.getElementById('usernameHello').innerText = 'hi ' + recoveredUsername
+        //username code
+        var recoveredUsername = localStorage.getItem('username');
+        if (isEmpty(recoveredUsername)) {
+            console.log('no username created yet')
+            document.getElementById('usernameInput').style.display = 'block'
+            document.getElementById('app').style.display = 'none'
+        } else {
+            document.getElementById('usernameInput').style.display = 'none'
+            document.getElementById('app').style.display = 'block'
 
-      username = recoveredUsername;
-      hasUsername = true;
-      if (serverAccess) var res = sendUsername(username);
+            username = recoveredUsername;
+            hasUsername = true;
+            if (serverAccess) var res = sendUsername(username);
+        }
     }
-  }
 } catch (error) {
-  document.getElementById('disconnected').style.display = 'block';
-  document.getElementById('connected').style.display = 'none';
-  console.log("can't connect to the server")
+    document.getElementById('disconnected').style.display = 'block';
+    document.getElementById('connected').style.display = 'none';
+    console.log("can't connect to the server")
 }
 
 
 
 
 websocket.onclose = function (e) {
-  document.getElementById('disconnected').style.display = 'block';
-  document.getElementById('connected').style.display = 'none';
-  console.log("disconnected from the server")
+    document.getElementById('disconnected').style.display = 'block';
+    document.getElementById('connected').style.display = 'none';
+    console.log("disconnected from the server")
 };
 
 websocket.onmessage = function (e) {
-  if (e.data)
-    console.log(e.data)
+    if (e.data)
+        processMessage(e.data);
 };
 
 websocket.onerror = function (e) {
-  console.log(e.data)
+    console.log(e.data)
 };
 
 
 
 function isEmpty(string) {
-  if (undefined == string || null == string || '' == string) return 1;
-  else return 0;
+    if (undefined == string || null == string || '' == string) return 1;
+    else return 0;
 }
 
+//Mettre toutes les fonctions d'envoi dans un fichier à part
 
 function sendUsername(username) {
-  send('setname|' + username);
+    send('setname|' + username);
 }
 
 function sendGetRooms() {
-  var res = send('getrooms');
+    var res = send('getrooms');
 }
 
 function sendNewRoom() {
-  var res = send('newroom');
+    var res = send('newroom');
 }
 
-
+function sendJoinRoom(id){
+    send('joinroom|' + id)
+}
 
 function createUserButton() {
-  username = document.getElementById('usernameText').value;
-  localStorage.setItem('username', username);
-  console.log('username : ' + username + ' saved!');
-  sendUsername(username);
-  window.location.reload(true);
+    username = document.getElementById('usernameText').value;
+    sendUsername(username);
 }
 
 
 function send(message) {
-  websocket.send(message);
+    websocket.send(message);
 }
 
 
 function toggleChangeUsername() {
-  document.getElementById('usernameInput').style.display = 'block'
+    document.getElementById('usernameInput').style.display = 'block'
+}
+
+function ClearRooms() {
+    Rooms = []
+    Users = []
 }
