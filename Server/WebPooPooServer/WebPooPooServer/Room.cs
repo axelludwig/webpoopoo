@@ -47,5 +47,52 @@ namespace WebPooPooServer
 
             return "rooms|" + string.Join("_", rooms);
         }
+
+        public static string RemoveRoom(User user, int roomId)
+        {
+            if (user.UserName == null)
+            {
+                return "errorNoUserName";
+            }
+            Room room = GetRoomFromId(roomId);
+            if (room == null)
+            {
+                return "errorRoomNotFound";
+            }
+            if (room.Users.Count != 0)
+            {
+                return "errorRoomNotEmpty";
+            }
+            MainManager.Rooms.Remove(room);
+            SocketSender.SendToAllUsers("removeroom|" + room.Id);
+            return null;
+        }
+
+        public static string CreateRoom(User user)
+        {
+            if (user.UserName == null)
+            {
+                return "errorNoUserName";
+            }
+            Room room = new Room();
+            SocketSender.SendToAllUsers("newroom|" + room.Id + "," + room.Name);
+            return user.JoinRoom(room.Id);
+        }
+
+        public static string RenameRoom(User user, string newName, int roomId)
+        {
+            if (user.UserName == null)
+            {
+                return "errorNoUserName";
+            }
+            Room room = Room.GetRoomFromId(roomId);
+            if (room == null)
+            {
+                return "errorRoomNotFound";
+            }
+            room.Name = newName;
+            SocketSender.SendToAllUsers("newroomname|" + room.Id + "," + room.Name);
+            return null;
+        }
     }
 }
