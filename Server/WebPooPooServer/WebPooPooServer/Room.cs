@@ -40,12 +40,12 @@ namespace WebPooPooServer
                 List<string> users = new List<string>();
                 foreach(User user in room.Users)
                 {
-                    users.Add(user.Id + "," + user.UserName);
+                    users.Add(user.Id + ":" + user.UserName);
                 }
-                rooms.Add(room.Id + "," + room.Name + "users[" + string.Join("|", users));
+                rooms.Add(room.Id + "," + room.Name + ",users[" + string.Join("-", users) + "]");
             }
 
-            return "rooms|" + string.Join(",", rooms);
+            return "rooms|" + string.Join("_", rooms);
         }
     }
 }

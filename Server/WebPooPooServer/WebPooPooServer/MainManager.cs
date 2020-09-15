@@ -39,6 +39,9 @@ namespace WebPooPooServer
                     case "newroom":
                         response = user.CreateRoom();
                         break;
+                    case "renameroom":
+                        response = user.RenameRoom(content.Split(',')[0], int.Parse(content.Split(',')[1]));
+                        break;
                     case "setname":
                         response = user.SetName(content);
                         break;
