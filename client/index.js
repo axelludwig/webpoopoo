@@ -4,8 +4,10 @@ var websocket,
   hasUsername = false,
   serverAccess = false,
   username;
+myself;
 
-document.getElementById('save').addEventListener('click', createUsername);
+
+document.getElementById('save').addEventListener('click', createUserButton);
 document.getElementById('changeUsername').addEventListener('click', toggleChangeUsername);
 document.getElementById('createRoom').addEventListener('click', sendNewRoom);
 document.getElementById('getRooms').addEventListener('click', sendGetRooms);
@@ -39,19 +41,21 @@ try {
 } catch (error) {
   document.getElementById('disconnected').style.display = 'block';
   document.getElementById('connected').style.display = 'none';
-
-  console.log("can't connect to server")
+  console.log("can't connect to the server")
 }
 
 
 
 
-// websocket.onclose = function (e) {
-//   writeToScreen("DISCONNECTED");
-// };
+websocket.onclose = function (e) {
+  document.getElementById('disconnected').style.display = 'block';
+  document.getElementById('connected').style.display = 'none';
+  console.log("disconnected from the server")
+};
 
 websocket.onmessage = function (e) {
-  console.log(e.data)
+  if (e.data)
+    console.log(e.data)
 };
 
 websocket.onerror = function (e) {
@@ -80,7 +84,7 @@ function sendNewRoom() {
 
 
 
-function createUsername() {
+function createUserButton() {
   username = document.getElementById('usernameText').value;
   localStorage.setItem('username', username);
   console.log('username : ' + username + ' saved!');
