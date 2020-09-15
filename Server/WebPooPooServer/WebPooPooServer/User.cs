@@ -31,9 +31,25 @@ namespace WebPooPooServer
             return JoinRoom(room.Id);
         }
 
+        public string RenameRoom(string newName, int roomId)
+        {
+            if (UserName == null)
+            {
+                return "errorNoUserName";
+            }
+            Room room = Room.GetRoomFromId(roomId);
+            if (room == null)
+            {
+                return "errorRoomNotFound";
+            }
+            room.Name = newName;
+            SocketSender.SendToAllUsers("newroomname|" + room.Id + "," + room.Name);
+            return null;
+        }
+
         public Room GetRoom()
         {
-            return MainManager.Rooms.Where(rooms => rooms.Users.Contains(this)).First();
+            return MainManager.Rooms.Where(rooms => rooms.Users.Contains(this)).FirstOrDefault();
         }
 
         public static User GetUserFromId(string id)
@@ -56,7 +72,7 @@ namespace WebPooPooServer
                 }
                 UserName = name;
                 SocketSender.SendToAllUsers("newname|" + Id + "," + name);
-                return "ok";
+                return null;
             }
             return "errorNameAlreadyUsed";
         }
@@ -69,6 +85,16 @@ namespace WebPooPooServer
             }
 
             Room room = Room.GetRoomFromId(roomId);
+            if (room == null)
+            {
+                return "errorRoomNotFound";
+            }
+            Room currentRoom = GetRoom();
+            if (currentRoom != null)
+            {
+                currentRoom.Users.Remove(this);
+                //Si l'utilisateur était déjà dans une room, il la quitte
+            }
             if (!room.Users.Contains(this))
             {
                 room.Users.Add(this);
@@ -88,8 +114,13 @@ namespace WebPooPooServer
                 return "errorNoUserName";
             }
 
+            if (GetRoom() == null)
+            {
+                return "errorNotInRoom";
+            }
+
             SocketSender.SendToUserRoomExceptUser(this, link);
-            return "ok";
+            return null;
         }
     }
 }

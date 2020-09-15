@@ -30,7 +30,7 @@ namespace WebPooPooServer
                 };
                 socket.OnMessage = message =>
                 {
-                    Console.WriteLine(message);
+                    Console.WriteLine("recieved : " + message);
                     string response = MainManager.ProcessMessage(message, getSocketId(socket));
                     if (response != null)
                         socket.Send(response);
