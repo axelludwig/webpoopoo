@@ -37,16 +37,22 @@ namespace WebPooPooServer
                         response = Room.DisplayRooms(user.UserName);
                         break;
                     case "newroom":
-                        response = user.CreateRoom();
+                        response = Room.CreateRoom(user);
                         break;
                     case "renameroom":
-                        response = user.RenameRoom(content.Split(',')[0], int.Parse(content.Split(',')[1]));
+                        response = Room.RenameRoom(user, content.Split(',')[0], int.Parse(content.Split(',')[1]));
                         break;
-                    case "setname":
-                        response = user.SetName(content);
+                    case "removeroom":
+                        response = Room.RemoveRoom(user, int.Parse(content));
                         break;
                     case "joinroom":
                         response = user.JoinRoom(int.Parse(content));
+                        break;
+                    case "leaveroom":
+                        response = user.LeaveRoom();
+                        break;
+                    case "setname":
+                        response = user.SetName(content);
                         break;
                     case "sendlink":
                         response = user.SendLink(content);

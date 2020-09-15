@@ -20,33 +20,6 @@ namespace WebPooPooServer
             MainManager.Users.Add(this);
         }
 
-        public string CreateRoom()
-        {
-            if (UserName == null)
-            {
-                return "errorNoUserName";
-            }
-            Room room = new Room();
-            SocketSender.SendToAllUsers("newroom|" + room.Id + "," + room.Name);
-            return JoinRoom(room.Id);
-        }
-
-        public string RenameRoom(string newName, int roomId)
-        {
-            if (UserName == null)
-            {
-                return "errorNoUserName";
-            }
-            Room room = Room.GetRoomFromId(roomId);
-            if (room == null)
-            {
-                return "errorRoomNotFound";
-            }
-            room.Name = newName;
-            SocketSender.SendToAllUsers("newroomname|" + room.Id + "," + room.Name);
-            return null;
-        }
-
         public Room GetRoom()
         {
             return MainManager.Rooms.Where(rooms => rooms.Users.Contains(this)).FirstOrDefault();
@@ -105,6 +78,23 @@ namespace WebPooPooServer
             {
                 return "errorAlreadyInRoom";
             }
+        }
+
+        public string LeaveRoom()
+        {
+            if (UserName == null)
+            {
+                return "errorNoUserName";
+            }
+
+            Room room = GetRoom();
+            if (room == null)
+            {
+                return "errorNotInRoom";
+            }
+            room.Users.Remove(this);
+            SocketSender.SendToAllUsers("leaveroom|" + Id);
+            return null;
         }
 
         public string SendLink(string link)

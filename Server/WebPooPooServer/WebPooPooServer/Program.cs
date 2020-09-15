@@ -46,7 +46,6 @@ namespace WebPooPooServer
                 }
                 input = Console.ReadLine();
             }
-
         }
 
         public static string getSocketId(IWebSocketConnection socket)
