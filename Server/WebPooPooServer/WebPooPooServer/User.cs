@@ -32,7 +32,9 @@ namespace WebPooPooServer
 
         public static void RemoveUser(string id)
         {
-            MainManager.Users.Remove(GetUserFromId(id));
+            User user = GetUserFromId(id);
+            user.LeaveRoom();
+            MainManager.Users.Remove(user);
         }
 
         public string SetName(string name)
@@ -63,13 +65,14 @@ namespace WebPooPooServer
                 return "errorRoomNotFound";
             }
             Room currentRoom = GetRoom();
-            if (currentRoom != null)
-            {
-                currentRoom.Users.Remove(this);
-                //Si l'utilisateur était déjà dans une room, il la quitte
-            }
             if (!room.Users.Contains(this))
             {
+                if (currentRoom != null)
+                {
+                    currentRoom.Users.Remove(this);
+                    //Si l'utilisateur était déjà dans une room, il la quitte
+                }
+
                 room.Users.Add(this);
                 SocketSender.SendToAllUsers("userjoinroom|" + Id + "," + roomId);
                 return null;

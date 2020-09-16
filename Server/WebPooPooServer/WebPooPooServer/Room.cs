@@ -45,7 +45,9 @@ namespace WebPooPooServer
                 rooms.Add(room.Id + "," + room.Name + "," + string.Join("&", users));
             }
 
-            return "getrooms|" + string.Join("_", rooms);
+            List<User> usersNotInRoom = MainManager.Users.Where(users => users.GetRoom() == null).ToList();
+
+            return "getrooms|" + string.Join("_", rooms) + "#" + string.Join(",", usersNotInRoom.Select(users => users.Id + ":" + users.UserName));
         }
 
         public static string RemoveRoom(User user, int roomId)

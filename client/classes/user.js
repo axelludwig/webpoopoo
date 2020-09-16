@@ -10,26 +10,24 @@ class User {
     }
 
     getRoom() {
-        Rooms.forEach(function (room, index) {
+        res = null;
+        for (let i = 0; i < Rooms.length; i++) {
+            room = Rooms[i];
             if (room.users.includes(this)) {
-                return room;
+                res = room;
             }
-        });
-        return null;
+        }
+        return res;
     }
 }
 
 function GetUserById(paramId) {
     res = null;
-    console.log(Users.length);
     for (let i = 0; i < Users.length; i++) {
         user = Users[i];
-        console.log(user.id + ":" + paramId)
         if (user.id == paramId) {
-            
             res = user;
         }
     }
-    console.log("null");
     return res;
 }

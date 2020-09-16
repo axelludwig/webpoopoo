@@ -9,7 +9,7 @@ class Room {
     addUser(user) {
         var room = user.getRoom();
         if (room != null) {
-            room.removeUser(user);
+            room.removeUserFromRoom(user);
         }
         this.users.push(user);
     }
@@ -20,8 +20,8 @@ class Room {
         })
     }
 
-    removeUser(user) {
-        index = this.users.indexOf(user);
+    removeUserFromRoom(user) {
+        var index = this.users.indexOf(user);
         if (index > -1) {
             this.users.splice(index, 1);
         }
@@ -33,7 +33,6 @@ function GetRoomById(paramId) {
     for (let i = 0; i < Rooms.length; i++) {
         room = Rooms[i];
         if (room.id == paramId) {
-            
             res = room;
         }
     }

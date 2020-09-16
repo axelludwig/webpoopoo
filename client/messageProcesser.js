@@ -31,24 +31,36 @@ function processMessage(message) {
         case "getrooms":
             ClearRooms();
             if (!isEmpty(content)) {
-                rooms = content.split('_');
-                rooms.forEach(function (room, index) {
-                    roomid = room.split(',')[0];
-                    roomname = room.split(',')[1];
-                    var myNewRoom = new Room(roomid, roomname)
+                usersNotInRoomString = content.split("#")[1];
+                if (!isEmpty(usersNotInRoomString)) {
+                    usersNotInRoom = usersNotInRoomString.split(',');
+                    usersNotInRoom.forEach(function (userInfo, index) {
+                        userid = userInfo.split(':')[0];
+                        username = userInfo.split(':')[1];
+                        new User(username, userid)
+                    });
+                }
 
-                    users = room.split(',')[2];
-                    if (!isEmpty(users)) {
-                        userinfos = users.split('&');
-                        userinfos.forEach(function (user, index) {
-                            userid = user.split(':')[0];
-                            username = user.split(':')[1];
-                            myNewRoom.addUser(new User(username, userid));
-                        });
-                    }
-                });
+                roomsString = content.split("#")[0];
+                if (!isEmpty(roomsString)) {
+                    rooms = roomsString.split('_');
+                    rooms.forEach(function (room, index) {
+                        roomid = room.split(',')[0];
+                        roomname = room.split(',')[1];
+                        var myNewRoom = new Room(roomid, roomname)
+
+                        users = room.split(',')[2];
+                        if (!isEmpty(users)) {
+                            userinfos = users.split('&');
+                            userinfos.forEach(function (user, index) {
+                                userid = user.split(':')[0];
+                                username = user.split(':')[1];
+                                myNewRoom.addUser(new User(username, userid));
+                            });
+                        }
+                    });
+                }
             }
-
             DisplayRoomsAndUsers();
             break;
     }
